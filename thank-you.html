@@ -1,75 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You – OttawaAiAgency</title>
-  <link rel="stylesheet" href="style.css"> <!-- Use this if your CSS is in a separate style.css -->
-  <style>
-    /* Include only if NOT linking to style.css */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0a0a0a;
-      color: #E5E0DA;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-    }
-    .thankyou-container {
-      max-width: 500px;
-      padding: 50px 30px;
-      background: linear-gradient(145deg, #181A1B, #232741);
-      border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(0,194,255,0.08);
-      text-align: center;
-      margin-top: 10vh;
-    }
-    .thankyou-heading {
-      color: #79A7FF;
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 24px;
-    }
-    .thankyou-message {
-      font-size: 1.2rem;
-      color: #B0BEC9;
-      margin-bottom: 32px;
-      line-height: 1.7;
-    }
-    .home-btn {
-      background: linear-gradient(45deg, #00C2FF, #79A7FF);
-      color: #181A1B;
-      padding: 15px 40px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 18px rgba(0,194,255,0.16);
-      margin-top: 10px;
-      display: inline-block;
-    }
-    .home-btn:hover {
-      background: linear-gradient(45deg, #79A7FF, #00C2FF);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0,194,255,0.24);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You – Ottawa Ai Agency</title>
+    <!-- Include Tailwind CSS via CDN for a modern look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font for a clean, modern look -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom fade-in animation for elements as they appear on screen */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
 </head>
-<body>
-  <div class="thankyou-container">
-    <div class="thankyou-heading">Thank You For Reaching Out!</div>
-    <div class="thankyou-message">
-      Your message has been received.<br>
-      Someone from OttawaAiAgency will contact you soon.<br><br>
-      We appreciate your interest in automating your business!
+<body class="bg-gray-950 text-gray-300 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Thank You Container -->
+    <div class="max-w-md w-full p-8 bg-gray-800 rounded-xl shadow-xl border border-gray-700 text-center fade-in">
+        <h1 class="text-3xl md:text-4xl font-bold text-purple-400 mb-4 fade-in delay-1">
+            Thank You!
+        </h1>
+        <p class="text-lg text-gray-400 mb-8 fade-in delay-2">
+            Your free automation audit request has been received.
+        </p>
+        <p class="text-md text-gray-400 mb-10 fade-in delay-3">
+            One of our AI automation specialists will be in touch with you shortly to discuss how we can help you stop wasting time.
+        </p>
+        <!-- Return Home Button -->
+        <a href="index.html" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 fade-in delay-4">
+            Return to Home Page
+        </a>
     </div>
-    <a class="home-btn" href="index.html">Return to Home Page</a>
-  </div>
+
 </body>
 </html>
