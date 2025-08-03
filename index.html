@@ -1,499 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OttawaAiAgency - AI Automation That Actually Works</title>
-<style>
-    * {margin: 0; padding: 0; box-sizing: border-box;}
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #0a0a0a;
-        color: #E5E0DA;
-        line-height: 1.6;
-        scroll-behavior: smooth;
-    }
-    
-    header {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
-    }
-    
-    .logo-container {
-        position: relative;
-        z-index: 2;
-    }
-    
-    .logo-placeholder {
-        width: 200px;
-        height: 200px;
-        border: 3px solid #d4af37;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        font-weight: bold;
-        color: #d4af37;
-        margin-bottom: 30px;
-        background: rgba(212, 175, 55, 0.05);
-        backdrop-filter: blur(10px);
-        animation: glow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes glow {
-        from { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-        to { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
-    }
-    
-    h1 {
-        font-size: 3.5rem;
-        color: #fff;
-        margin-bottom: 15px;
-        font-weight: 700;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        position: relative;
-        z-index: 2;
-    }
-    
-    .tagline {
-        font-size: 1.3rem;
-        color: #d4af37;
-        margin-bottom: 30px;
-        font-weight: 500;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .cta-button {
-        background: linear-gradient(45deg, #d4af37, #f4d03f);
-        color: #000;
-        padding: 15px 30px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.3s ease;
-        position: relative;
-        z-index: 2;
-        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-    }
-    
-    .cta-button:hover {
-        background: linear-gradient(45deg, #f4d03f, #d4af37);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-    }
-    
-    section {
-        padding: 100px 20px;
-        max-width: 1200px;
-        margin: auto;
-    }
-    
-    h2 {
-        font-size: 2.5rem;
-        color: #d4af37;
-        margin-bottom: 30px;
-        text-align: center;
-        font-weight: 600;
-    }
-    
-    .section-intro {
-        font-size: 1.2rem;
-        text-align: center;
-        margin-bottom: 50px;
-        color: #ccc;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .services {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 30px;
-        margin-bottom: 60px;
-    }
-    
-    .card {
-        background: linear-gradient(145deg, #1a1a1a, #222);
-        padding: 30px;
-        border-radius: 15px;
-        border: 1px solid #333;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-        transition: left 0.5s;
-    }
-    
-    .card:hover::before {
-        left: 100%;
-    }
-    
-    .card:hover {
-        transform: translateY(-10px);
-        border-color: #d4af37;
-        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
-    }
-    
-    .card h3 {
-        font-size: 1.5rem;
-        color: #d4af37;
-        margin-bottom: 15px;
-        font-weight: 600;
-    }
-    
-    .card p {
-        margin-bottom: 15px;
-        color: #ddd;
-        line-height: 1.7;
-    }
-    
-    .card ul {
-        list-style: none;
-        margin-top: 15px;
-    }
-    
-    .card li {
-        padding: 5px 0;
-        color: #bbb;
-        position: relative;
-        padding-left: 20px;
-    }
-    
-    .card li::before {
-        content: '✓';
-        position: absolute;
-        left: 0;
-        color: #d4af37;
-        font-weight: bold;
-    }
-    
-    .pricing-hint {
-        background: rgba(212, 175, 55, 0.1);
-        padding: 10px 15px;
-        border-radius: 8px;
-        margin-top: 15px;
-        font-size: 0.9rem;
-        color: #d4af37;
-        font-weight: 500;
-    }
-    
-    .contact-form {
-        max-width: 600px;
-        margin: auto;
-        background: linear-gradient(145deg, #1a1a1a, #222);
-        padding: 40px;
-        border-radius: 15px;
-        border: 1px solid #333;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    
-    .form-group {
-        margin-bottom: 20px;
-    }
-    
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        color: #d4af37;
-        font-weight: 500;
-    }
-    
-    input, textarea, select {
-        width: 100%;
-        padding: 15px;
-        margin: 0;
-        border: 2px solid #333;
-        border-radius: 8px;
-        background: #0f0f0f;
-        color: #fff;
-        font-size: 1rem;
-        transition: border-color 0.3s ease;
-    }
-    
-    input:focus, textarea:focus, select:focus {
-        outline: none;
-        border-color: #d4af37;
-    }
-    
-    button {
-        background: linear-gradient(45deg, #d4af37, #f4d03f);
-        color: #000;
-        font-weight: bold;
-        cursor: pointer;
-        padding: 15px 30px;
-        border: none;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        transition: all 0.3s ease;
-        width: 100%;
-    }
-    
-    button:hover {
-        background: linear-gradient(45deg, #f4d03f, #d4af37);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-    }
-    
-    .testimonial {
-        background: linear-gradient(145deg, #1a1a1a, #222);
-        padding: 30px;
-        border-radius: 15px;
-        border-left: 4px solid #d4af37;
-        margin: 30px 0;
-        font-style: italic;
-        color: #ddd;
-    }
-    
-    .testimonial-author {
-        margin-top: 15px;
-        color: #d4af37;
-        font-weight: 600;
-        font-style: normal;
-    }
-    
-    footer {
-        text-align: center;
-        padding: 40px 20px;
-        color: #777;
-        font-size: 0.9rem;
-        background: #111;
-        border-top: 1px solid #333;
-    }
-    
-    .fade-in {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeIn 0.8s forwards;
-    }
-    
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
-            transform: translateY(0);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ottawa Ai Agency - AI Automation That Actually Works</title>
+    <!-- Include Tailwind CSS via CDN for a modern look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font for a clean, modern look -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
-    }
-    
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
-    .delay-3 { animation-delay: 0.6s; }
-    .delay-4 { animation-delay: 0.8s; }
-    
-    @media (max-width: 768px) {
-        h1 { font-size: 2.5rem; }
-        .services { grid-template-columns: 1fr; }
-        section { padding: 60px 20px; }
-    }
-</style>
+
+        /* Custom glow animation for the hero section logo with new colors */
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(128, 0, 128, 0.3); }
+            to { box-shadow: 0 0 40px rgba(255, 105, 180, 0.6); }
+        }
+        .glow-animation {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        /* Custom fade-in animation for elements as they appear on screen */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
 </head>
-<body>
+<body class="bg-gray-950 text-gray-300 min-h-screen flex flex-col">
 
-<header>
-    <div class="logo-container fade-in">
-        <div class="logo-placeholder">OAA</div>
-        <h1 class="fade-in delay-1">OttawaAiAgency</h1>
-        <p class="tagline fade-in delay-2">Stop Wasting Time on Repetitive Tasks</p>
-        <a href="#contact" class="cta-button fade-in delay-3">Get Your Free Automation Audit</a>
+    <!-- Header Section -->
+    <header class="h-screen flex flex-col justify-center items-center text-center p-4 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 bg-radial-gradient from-purple-400/10 to-transparent pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col items-center">
+            <!-- Updated Logo: Smiley face with a faded AI neural network -->
+            <div class="logo-placeholder w-52 h-52 md:w-64 md:h-64 rounded-full border-4 border-purple-400 flex items-center justify-center text-3xl md:text-4xl font-extrabold text-purple-400 mb-8 bg-purple-400/5 backdrop-blur-sm glow-animation fade-in">
+                <svg viewBox="0 0 100 100" class="w-full h-full p-4">
+                    <!-- Outer circle of the logo -->
+                    <circle cx="50" cy="50" r="40" fill="transparent" stroke="url(#gradient)" stroke-width="3"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:rgb(255,105,180);stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:rgb(128,0,128);stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Faded neural network lines from the previous version -->
+                    <path d="M50 35 L50 65 M35 50 L65 50 M40 40 L60 60 M40 60 L60 40" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.1"/>
+                    <circle cx="50" cy="35" r="2" fill="white" opacity="0.1"/>
+                    <circle cx="50" cy="65" r="2" fill="white" opacity="0.1"/>
+                    <circle cx="35" cy="50" r="2" fill="white" opacity="0.1"/>
+                    <circle cx="65" cy="50" r="2" fill="white" opacity="0.1"/>
+                    <circle cx="40" cy="40" r="2" fill="white" opacity="0.1"/>
+                    <circle cx="60" cy="60" r="2" fill="white" opacity="0.1"/>
+                    <circle cx="40" cy="60" r="2" fill="white" opacity="0.1"/>
+                    <circle cx="60" cy="40" r="2" fill="white" opacity="0.1"/>
+                    
+                    <!-- Left eye of the smiley face -->
+                    <circle cx="35" cy="40" r="4" fill="white"/>
+
+                    <!-- Right eye of the smiley face -->
+                    <circle cx="65" cy="40" r="4" fill="white"/>
+                    
+                    <!-- Mouth of the smiley face -->
+                    <path d="M30 65 Q50 85 70 65" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+
+                    <!-- "OAA" text at the center -->
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-weight="extrabold" font-size="20" fill="white">OAA</text>
+                </svg>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tighter bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600 bg-clip-text text-transparent drop-shadow-lg fade-in delay-1">
+                Ottawa Ai Agency
+            </h1>
+            <p class="text-lg md:text-xl text-purple-400 font-semibold mt-4 fade-in delay-2">
+                Stop Wasting Time on Repetitive Tasks
+            </p>
+            <a href="#contact" class="mt-8 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 fade-in delay-3">
+                Get Your Free Automation Audit
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Why Us Section -->
+        <section class="py-20 md:py-32 px-4 max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center text-purple-400 mb-6 fade-in">
+                Why Your Business Needs AI Automation Now
+            </h2>
+            <p class="text-lg text-center max-w-4xl mx-auto mb-16 text-gray-400 fade-in delay-1">
+                You're spending 10+ hours a week on tasks a computer could do in minutes. While you're manually posting content, responding to reviews, and managing workflows, your competitors are scaling with automation. We fix that.
+            </p>
+            <div class="testimonial bg-gray-800 p-8 md:p-12 rounded-xl border-l-4 border-purple-400 max-w-3xl mx-auto shadow-lg fade-in delay-2">
+                <p class="text-lg md:text-xl italic text-gray-200">
+                    "Ottawa Ai Agency saved me 15 hours per week. My social media posts go out automatically, customer reviews get responses within hours, and I can focus on actually growing my business instead of being buried in admin work."
+                </p>
+                <div class="mt-6 text-purple-400 font-semibold text-right">- Sarah M., Local Restaurant Owner</div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="py-20 md:py-32 px-4 bg-gray-900">
+            <h2 class="text-3xl md:text-5xl font-bold text-center text-purple-400 mb-6 fade-in">
+                Our Automation Solutions
+            </h2>
+            <p class="text-lg text-center max-w-4xl mx-auto mb-16 text-gray-400 fade-in delay-1">
+                We offer a range of cutting-edge solutions tailored to your business needs.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Card 1: Social Media Automation -->
+                <div class="card p-8 bg-gray-800 rounded-xl border border-gray-700 transition-all duration-300 hover:border-purple-400 hover:shadow-xl hover:shadow-purple-400/10 fade-in delay-2">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-4">Social Media Automation</h3>
+                    <p class="text-gray-400 mb-4">Never miss a post again. We create systems that automatically schedule and publish your content across all platforms, respond to comments, and even generate engaging posts based on your business updates.</p>
+                    <ul class="space-y-2 text-gray-400 list-disc list-inside">
+                        <li>Auto-schedule posts across Facebook, Instagram, LinkedIn, Twitter</li>
+                        <li>AI-generated captions that match your brand voice</li>
+                        <li>Automatic comment monitoring and response</li>
+                        <li>Performance tracking and optimization</li>
+                    </ul>
+                    <div class="mt-6 text-sm font-semibold text-purple-400">Starting from $500 - On sale for $250 (Limited time)</div>
+                </div>
+
+                <!-- Card 2: Review Management System -->
+                <div class="card p-8 bg-gray-800 rounded-xl border border-gray-700 transition-all duration-300 hover:border-purple-400 hover:shadow-xl hover:shadow-purple-400/10 fade-in delay-3">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-4">Review Management System</h3>
+                    <p class="text-gray-400 mb-4">Turn every Google review into a business opportunity. Our AI monitors all review platforms, crafts personalized responses, and sends you weekly insights to improve your service.</p>
+                    <ul class="space-y-2 text-gray-400 list-disc list-inside">
+                        <li>24/7 monitoring of Google, Yelp, Facebook reviews</li>
+                        <li>Instant, personalized AI responses to all reviews</li>
+                        <li>Weekly sentiment analysis and improvement recommendations</li>
+                        <li>Crisis alert system for negative feedback</li>
+                    </ul>
+                    <div class="mt-6 text-sm font-semibold text-purple-400">Starting from $500 - On sale for $250 (Limited time)</div>
+                </div>
+                
+                <!-- Card 3: Customer Communication Automation -->
+                <div class="card p-8 bg-gray-800 rounded-xl border border-gray-700 transition-all duration-300 hover:border-purple-400 hover:shadow-xl hover:shadow-purple-400/10 fade-in delay-4">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-4">Customer Communication Automation</h3>
+                    <p class="text-gray-400 mb-4">Never lose a lead or leave a customer waiting. Automated email sequences, appointment booking, follow-ups, and support tickets that handle themselves.</p>
+                    <ul class="space-y-2 text-gray-400 list-disc list-inside">
+                        <li>Automated lead nurturing email sequences</li>
+                        <li>Smart appointment booking and reminders</li>
+                        <li>Customer onboarding automation</li>
+                        <li>Support ticket categorization and routing</li>
+                    </ul>
+                    <div class="mt-6 text-sm font-semibold text-purple-400">Starting from $500 - On sale for $250 (Limited time)</div>
+                </div>
+
+                <!-- Card 4: Laboratory & Industrial Automation -->
+                <div class="card p-8 bg-gray-800 rounded-xl border border-gray-700 transition-all duration-300 hover:border-purple-400 hover:shadow-xl hover:shadow-purple-400/10 fade-in delay-5">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-4">Laboratory & Industrial Automation</h3>
+                    <p class="text-gray-400 mb-4">Optimize your lab operations with AI-powered workflow management, automated reporting, compliance tracking, and predictive maintenance systems.</p>
+                    <ul class="space-y-2 text-gray-400 list-disc list-inside">
+                        <li>Automated sample tracking and chain of custody</li>
+                        <li>Real-time equipment monitoring and alerts</li>
+                        <li>Compliance reporting that generates itself</li>
+                        <li>Predictive maintenance scheduling</li>
+                    </ul>
+                    <div class="mt-6 text-sm font-semibold text-purple-400">Custom pricing based on requirements - Contact for quote</div>
+                </div>
+                
+                <!-- Card 5: Local AI Deployment -->
+                <div class="card p-8 bg-gray-800 rounded-xl border border-gray-700 transition-all duration-300 hover:border-purple-400 hover:shadow-xl hover:shadow-purple-400/10 fade-in delay-6">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-4">Local AI Deployment</h3>
+                    <p class="text-gray-400 mb-4">Keep your data private and processing fast with on-premises AI solutions. Perfect for sensitive business data or when internet reliability is a concern.</p>
+                    <ul class="space-y-2 text-gray-400 list-disc list-inside">
+                        <li>Private AI models running on your hardware</li>
+                        <li>Zero data leaving your premises</li>
+                        <li>Custom AI training on your specific data</li>
+                        <li>Integration with existing software systems</li>
+                    </ul>
+                    <div class="mt-6 text-sm font-semibold text-purple-400">Enterprise solutions - Contact for consultation</div>
+                </div>
+
+                <!-- Card 6: Custom Integration & Workflow Automation -->
+                <div class="card p-8 bg-gray-800 rounded-xl border border-gray-700 transition-all duration-300 hover:border-purple-400 hover:shadow-xl hover:shadow-purple-400/10 fade-in delay-7">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-4">Custom Integration & Workflow Automation</h3>
+                    <p class="text-gray-400 mb-4">Connect all your business tools into one seamless workflow. Using Make.com, n8n, and custom APIs, we make your software stack work together automatically.</p>
+                    <ul class="space-y-2 text-gray-400 list-disc list-inside">
+                        <li>Connect CRM, accounting, marketing tools automatically</li>
+                        <li>Custom API integrations for any software</li>
+                        <li>Automated data synchronization across platforms</li>
+                        <li>Business process optimization and streamlining</li>
+                    </ul>
+                    <div class="mt-6 text-sm font-semibold text-purple-400">Starting from $500 - On sale for $250 (Limited time)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section id="contact" class="py-20 md:py-32 px-4 max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center text-purple-400 mb-6 fade-in">
+                Ready to Stop Wasting Time?
+            </h2>
+            <p class="text-lg text-center mx-auto mb-10 text-gray-400 fade-in delay-1">
+                Most businesses waste 20+ hours per week on tasks that could be automated. That's over $2,000 in lost productivity monthly. Let's fix that with a free automation audit.
+            </p>
+            
+            <form id="contact-form" class="bg-gray-800 p-8 rounded-xl shadow-xl border border-gray-700 fade-in delay-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="form-group">
+                        <label for="name" class="block text-purple-400 font-semibold mb-2">Your Name</label>
+                        <input type="text" id="name" name="name" class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-400" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="block text-purple-400 font-semibold mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-400" required>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="form-group">
+                        <label for="company" class="block text-purple-400 font-semibold mb-2">Company Name</label>
+                        <input type="text" id="company" name="company" class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-400">
+                    </div>
+                    <div class="form-group">
+                        <label for="business-type" class="block text-purple-400 font-semibold mb-2">Business Type</label>
+                        <select id="business-type" name="business-type" class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-400" required>
+                            <option value="" class="text-gray-500">Select your business type</option>
+                            <option value="restaurant">Restaurant/Food Service</option>
+                            <option value="retail">Retail/E-commerce</option>
+                            <option value="professional-services">Professional Services</option>
+                            <option value="healthcare">Healthcare/Medical</option>
+                            <option value="laboratory">Laboratory/Scientific</option>
+                            <option value="manufacturing">Manufacturing/Industrial</option>
+                            <option value="real-estate">Real Estate</option>
+                            <option value="fitness">Fitness/Wellness</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group mb-6">
+                    <label for="biggest-challenge" class="block text-purple-400 font-semibold mb-2">What's your biggest time-wasting task right now?</label>
+                    <textarea id="biggest-challenge" name="biggest-challenge" rows="4" placeholder="e.g., Manually posting to social media every day, responding to every Google review, copying data between systems..." class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-400" required></textarea>
+                </div>
+                
+                <div class="form-group mb-8">
+                    <label for="hours-wasted" class="block text-purple-400 font-semibold mb-2">How many hours per week do you spend on repetitive tasks?</label>
+                    <select id="hours-wasted" name="hours-wasted" class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-400" required>
+                        <option value="" class="text-gray-500">Select hours per week</option>
+                        <option value="5-10">5-10 hours</option>
+                        <option value="10-20">10-20 hours</option>
+                        <option value="20-30">20-30 hours</option>
+                        <option value="30+">30+ hours</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full p-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    Get My Free Automation Audit ($500 Value)
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Thank You Modal -->
+    <div id="thank-you-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="bg-gray-800 p-8 rounded-lg text-center max-w-md w-full shadow-2xl border border-gray-700">
+            <h3 class="text-2xl font-bold text-purple-400 mb-4">Thank You For Reaching Out!</h3>
+            <p class="text-gray-300">Your message has been received.<br>Someone from Ottawa Ai Agency will contact you soon.</p>
+            <button id="close-modal-btn" class="mt-6 px-6 py-2 bg-purple-400 text-white font-bold rounded-full">Close</button>
+        </div>
     </div>
-</header>
 
-<section>
-    <h2 class="fade-in">Why Your Business Needs AI Automation Now</h2>
-    <p class="section-intro fade-in">You're spending 10+ hours a week on tasks a computer could do in minutes. While you're manually posting content, responding to reviews, and managing workflows, your competitors are scaling with automation. We fix that.</p>
-    
-    <div class="testimonial fade-in">
-        "OttawaAiAgency saved me 15 hours per week. My social media posts go out automatically, customer reviews get responses within hours, and I can focus on actually growing my business instead of being buried in admin work."
-        <div class="testimonial-author">- Sarah M., Local Restaurant Owner</div>
-    </div>
-</section>
+    <!-- Footer -->
+    <footer class="py-8 text-center text-gray-500 bg-gray-900 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>&copy; 2025 Ottawa Ai Agency. All rights reserved.</p>
+            <p class="mt-2">Serving Ottawa and surrounding areas • Email: ottawaaiagency@gmail.com</p>
+        </div>
+    </footer>
 
-<section>
-    <h2 class="fade-in">Our Automation Solutions</h2>
-    <div class="services">
-        
-        <div class="card fade-in">
-            <h3>Social Media Automation</h3>
-            <p>Never miss a post again. We create systems that automatically schedule and publish your content across all platforms, respond to comments, and even generate engaging posts based on your business updates.</p>
-            <ul>
-                <li>Auto-schedule posts across Facebook, Instagram, LinkedIn, Twitter</li>
-                <li>AI-generated captions that match your brand voice</li>
-                <li>Automatic comment monitoring and response</li>
-                <li>Performance tracking and optimization</li>
-                <li>Content calendar that runs itself</li>
-            </ul>
-            <div class="pricing-hint">Starting from $500 - On sale for $250 (Limited time)</div>
-        </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contact-form');
+            const modal = document.getElementById('thank-you-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
 
-        <div class="card fade-in delay-1">
-            <h3>Review Management System</h3>
-            <p>Turn every Google review into a business opportunity. Our AI monitors all review platforms, crafts personalized responses, and sends you weekly insights to improve your service.</p>
-            <ul>
-                <li>24/7 monitoring of Google, Yelp, Facebook reviews</li>
-                <li>Instant, personalized AI responses to all reviews</li>
-                <li>Weekly sentiment analysis and improvement recommendations</li>
-                <li>Automatic follow-up sequences for happy customers</li>
-                <li>Crisis alert system for negative feedback</li>
-            </ul>
-            <div class="pricing-hint">Starting from $500 - On sale for $250 (Limited time)</div>
-        </div>
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    // Simulate form submission
+                    console.log('Form submitted!');
 
-        <div class="card fade-in delay-2">
-            <h3>Customer Communication Automation</h3>
-            <p>Never lose a lead or leave a customer waiting. Automated email sequences, appointment booking, follow-ups, and support tickets that handle themselves.</p>
-            <ul>
-                <li>Automated lead nurturing email sequences</li>
-                <li>Smart appointment booking and reminders</li>
-                <li>Customer onboarding automation</li>
-                <li>Support ticket categorization and routing</li>
-                <li>Personalized follow-up campaigns</li>
-            </ul>
-            <div class="pricing-hint">Starting from $500 - On sale for $250 (Limited time)</div>
-        </div>
+                    // Display the thank you modal
+                    modal.classList.remove('hidden');
 
-        <div class="card fade-in delay-3">
-            <h3>Laboratory & Industrial Automation</h3>
-            <p>Optimize your lab operations with AI-powered workflow management, automated reporting, compliance tracking, and predictive maintenance systems.</p>
-            <ul>
-                <li>Automated sample tracking and chain of custody</li>
-                <li>Real-time equipment monitoring and alerts</li>
-                <li>Compliance reporting that generates itself</li>
-                <li>Predictive maintenance scheduling</li>
-                <li>Quality control automation and anomaly detection</li>
-                <li>Integration with LIMS and ERP systems</li>
-            </ul>
-            <div class="pricing-hint">Custom pricing based on requirements - Contact for quote</div>
-        </div>
+                    // Reset the form
+                    form.reset();
+                });
+            }
 
-        <div class="card fade-in delay-4">
-            <h3>Local AI Deployment</h3>
-            <p>Keep your data private and processing fast with on-premises AI solutions. Perfect for sensitive business data or when internet reliability is a concern.</p>
-            <ul>
-                <li>Private AI models running on your hardware</li>
-                <li>Zero data leaving your premises</li>
-                <li>Custom AI training on your specific data</li>
-                <li>Integration with existing software systems</li>
-                <li>24/7 monitoring and maintenance</li>
-            </ul>
-            <div class="pricing-hint">Enterprise solutions - Contact for consultation</div>
-        </div>
-
-        <div class="card fade-in">
-            <h3>Custom Integration & Workflow Automation</h3>
-            <p>Connect all your business tools into one seamless workflow. Using Make.com, n8n, and custom APIs, we make your software stack work together automatically.</p>
-            <ul>
-                <li>Connect CRM, accounting, marketing tools automatically</li>
-                <li>Custom API integrations for any software</li>
-                <li>Automated data synchronization across platforms</li>
-                <li>Business process optimization and streamlining</li>
-                <li>Real-time notifications and alerts</li>
-            </ul>
-            <div class="pricing-hint">Starting from $500 - On sale for $250 (Limited time)</div>
-        </div>
-    </div>
-</section>
-
-<section>
-    <h2 class="fade-in">Ready to Stop Wasting Time?</h2>
-    <p class="section-intro fade-in">Most businesses waste 20+ hours per week on tasks that could be automated. That's over $2,000 in lost productivity monthly. Let's fix that with a free automation audit.</p>
-    
-    <form class="contact-form fade-in" action="https://formsubmit.co/ottawaaiagency@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="New Automation Audit Request - OttawaAiAgency">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://ottawaaiagency.ca/thank-you.html">
-        
-        <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="company">Company Name</label>
-            <input type="text" id="company" name="company">
-        </div>
-        
-        <div class="form-group">
-            <label for="business-type">Business Type</label>
-            <select id="business-type" name="business-type" required>
-                <option value="">Select your business type</option>
-                <option value="restaurant">Restaurant/Food Service</option>
-                <option value="retail">Retail/E-commerce</option>
-                <option value="professional-services">Professional Services</option>
-                <option value="healthcare">Healthcare/Medical</option>
-                <option value="laboratory">Laboratory/Scientific</option>
-                <option value="manufacturing">Manufacturing/Industrial</option>
-                <option value="real-estate">Real Estate</option>
-                <option value="fitness">Fitness/Wellness</option>
-                <option value="other">Other</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="biggest-challenge">What's your biggest time-wasting task right now?</label>
-            <textarea id="biggest-challenge" name="biggest-challenge" rows="4" placeholder="e.g., Manually posting to social media every day, responding to every Google review, copying data between systems..." required></textarea>
-        </div>
-        
-        <div class="form-group">
-            <label for="hours-wasted">How many hours per week do you spend on repetitive tasks?</label>
-            <select id="hours-wasted" name="hours-wasted" required>
-                <option value="">Select hours per week</option>
-                <option value="5-10">5-10 hours</option>
-                <option value="10-20">10-20 hours</option>
-                <option value="20-30">20-30 hours</option>
-                <option value="30+">30+ hours</option>
-            </select>
-        </div>
-        
-        <button type="submit">Get My Free Automation Audit ($500 Value)</button>
-    </form>
-    
-    <div class="testimonial fade-in" style="margin-top: 50px;">
-        "The audit alone was worth thousands. They identified 12 different processes we could automate and showed us exactly how much time and money we'd save. The ROI calculator they provided was incredibly detailed."
-        <div class="testimonial-author">- Mike R., Manufacturing Company Owner</div>
-    </div>
-</section>
-
-<footer>
-    <p>&copy; 2025 OttawaAiAgency. All rights reserved.</p>
-    <p>Serving Ottawa and surrounding areas • Email: ottawaaiagency@gmail.com</p>
-    <p>Stop wasting time. Start automating.</p>
-</footer>
-
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
