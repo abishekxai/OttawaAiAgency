@@ -1,234 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OttawaAiAgency | AI Automation Services</title>
-    <style>
-        /* General Styling */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #0f0f0f;
-            color: #E5E0DA;
-            line-height: 1.6;
-            scroll-behavior: smooth;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OttawaAiAgency</title>
+<style>
+    /* General reset */
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #0a0a0a;
+        color: #E5E0DA;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+    }
+    header {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+    }
+    .logo-placeholder {
+        width: 180px;
+        height: 180px;
+        border: 2px solid #d4af37;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #d4af37;
+        margin-bottom: 20px;
+    }
+    h1 {
+        font-size: 3rem;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+    p.tagline {
+        font-size: 1.2rem;
+        color: #aaa;
+    }
+    section {
+        padding: 80px 20px;
+        max-width: 1100px;
+        margin: auto;
+    }
+    h2 {
+        font-size: 2rem;
+        color: #d4af37;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .services {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+    }
+    .card {
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #333;
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        border-color: #d4af37;
+    }
+    .contact-form {
+        max-width: 500px;
+        margin: auto;
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #333;
+    }
+    input, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 5px;
+    }
+    input, textarea {
+        background: #0f0f0f;
+        color: #fff;
+    }
+    button {
+        background: #d4af37;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #e6c34d;
+    }
+    footer {
+        text-align: center;
+        padding: 20px;
+        color: #777;
+        font-size: 0.9rem;
+    }
+    /* Simple fade-in animation */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        /* Header */
-        header {
-            background-color: rgba(15, 15, 15, 0.95);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 10;
-            animation: fadeDown 1s ease forwards;
-        }
-        header h1 {
-            font-size: 1.5rem;
-            margin: 0;
-            color: #E5E0DA;
-        }
-        nav a {
-            color: #E5E0DA;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-weight: 500;
-            position: relative;
-        }
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: #E5E0DA;
-            transition: width 0.3s ease;
-        }
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 6rem 10%;
-            background: radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 60%),
-                        linear-gradient(to bottom, rgba(255,255,255,0.02), transparent);
-            animation: fadeUp 1.5s ease forwards;
-        }
-        .hero h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            color: #E5E0DA;
-        }
-        .hero p {
-            max-width: 700px;
-            margin: auto;
-            font-size: 1.1rem;
-            color: #c0b8ae;
-        }
-        .cta-btn {
-            margin-top: 2rem;
-            padding: 0.9rem 1.8rem;
-            border: none;
-            background-color: #E5E0DA;
-            color: #0f0f0f;
-            font-size: 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-        }
-        .cta-btn:hover {
-            background-color: #c0b8ae;
-            transform: translateY(-2px);
-        }
-
-        /* Services Section */
-        #services {
-            text-align: center;
-            animation: fadeUp 1.5s ease forwards;
-        }
-        .services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        .service-card {
-            background: rgba(255,255,255,0.05);
-            padding: 1.8rem;
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(6px);
-        }
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-        .service-card h3 {
-            margin-top: 0;
-            color: #E5E0DA;
-        }
-
-        /* About Section */
-        #about {
-            text-align: center;
-            animation: fadeUp 1.5s ease forwards;
-        }
-
-        /* Contact Section */
-        #contact {
-            text-align: center;
-            animation: fadeUp 1.5s ease forwards;
-        }
-        .contact form {
-            display: grid;
-            gap: 1rem;
-            max-width: 500px;
-            margin: auto;
-        }
-        input, textarea {
-            padding: 0.9rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        button {
-            background-color: #E5E0DA;
-            color: #0f0f0f;
-            padding: 0.9rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #c0b8ae;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            background-color: rgba(255,255,255,0.05);
-            margin-top: 3rem;
-        }
-
-        /* Animations */
-        @keyframes fadeUp {
-            0% {opacity: 0; transform: translateY(20px);}
-            100% {opacity: 1; transform: translateY(0);}
-        }
-        @keyframes fadeDown {
-            0% {opacity: 0; transform: translateY(-20px);}
-            100% {opacity: 1; transform: translateY(0);}
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
 
 <header>
-    <h1>OttawaAiAgency</h1>
-    <nav>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </nav>
+    <div class="logo-placeholder fade-in">LOGO</div>
+    <h1 class="fade-in">OttawaAiAgency</h1>
+    <p class="tagline fade-in">Premium AI & Automation Solutions</p>
 </header>
 
-<section class="hero">
-    <h2>AI Automation for Businesses, Industries & Labs</h2>
-    <p>Empowering small businesses, industries, and laboratories with cutting-edge AI automation — from social media automation to operational efficiency systems. We help you save time, cut costs, and grow smarter.</p>
-    <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+<section>
+    <h2 class="fade-in">About Us</h2>
+    <p class="fade-in">At OttawaAiAgency, we empower small businesses, industries, and laboratories with cutting-edge automation solutions. From streamlining online posting to operational workflows, our tailored AI-driven strategies help you save time, reduce errors, and maximize efficiency.</p>
 </section>
 
-<section id="services">
-    <h2>Our Services</h2>
+<section>
+    <h2 class="fade-in">Our Services</h2>
     <div class="services">
-        <div class="service-card">
+        <div class="card fade-in">
             <h3>Small Business Automation</h3>
-            <p>Automate online posting, analyze Google reviews, and streamline customer feedback collection to boost your brand effortlessly.</p>
+            <p>Automate social media posting, analyze Google reviews, and streamline customer feedback processes.</p>
         </div>
-        <div class="service-card">
+        <div class="card fade-in">
             <h3>Industrial & Lab Automation</h3>
-            <p>Optimize workflows, integrate smart monitoring systems, and automate routine operational tasks for maximum efficiency.</p>
+            <p>Optimize laboratory operations, industrial workflows, and compliance reporting through AI-driven tools.</p>
         </div>
-        <div class="service-card">
-            <h3>Custom AI Solutions</h3>
-            <p>From local AI deployments to complex workflows with Make.com or n8n — tailored automation that fits your unique needs.</p>
+        <div class="card fade-in">
+            <h3>Local AI Deployment</h3>
+            <p>Run AI locally for faster, secure, and private data processing tailored to your business needs.</p>
+        </div>
+        <div class="card fade-in">
+            <h3>Custom Integrations</h3>
+            <p>Create powerful automations using Make.com, n8n, and advanced scripting to connect your tools.</p>
         </div>
     </div>
 </section>
 
-<section id="about">
-    <h2>About OttawaAiAgency</h2>
-    <p>We specialize in bridging the gap between AI technology and real-world business operations. With expertise in AI workflows, local AI deployment, and industry-specific automation, our mission is to make automation accessible, affordable, and impactful for every client we serve.</p>
-</section>
-
-<section id="contact">
-    <h2>Contact Us</h2>
-    <form>
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="Your Message"></textarea>
+<section>
+    <h2 class="fade-in">Contact Us</h2>
+    <form class="contact-form fade-in" action="https://formsubmit.co/ottawaaiagency@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New submission from OttawaAiAgency">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
         <button type="submit">Send Message</button>
     </form>
-    <p style="margin-top:1rem;">Or email us at: <a href="mailto:info@ottawaaiagency.com" style="color:#E5E0DA;">info@ottawaaiagency.com</a></p>
 </section>
 
 <footer>
